@@ -34,19 +34,16 @@ export const fetchUserProfile = async (username) => {
 
 export const followUser = async (username) => {
   try {
-    const response = await axios.post(`/api/user/${username}/follow`, null, );
+    const response = await axios.post(`/api/user/${username}/follow/`, null, );
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.error);
   }
 };
 
-export const unfollowUser = async (userId) => {
+export const unfollowUser = async (username) => {
   try {
-    const response = await axios.post(`/api/user/${userId}/unfollow`, null, {
-      headers: {
-        authorization: localStorage.getItem("token"),
-      },
+    const response = await axios.post(`/api/user/${username}/follow/`, null, {
     });
     return response.data;
   } catch (error) {
@@ -54,15 +51,12 @@ export const unfollowUser = async (userId) => {
   }
 };
 
-export const getUserFollowers = async (userId, offset = 0) => {
+export const getUserFollowers = async (username, offset = 0) => {
   try {
-    const response = await axios.post(
-      `/api/user/${userId}/followers`,
-      { offset },
+    const response = await axios.get(
+      `/api/user/${username}/followers/`,
       {
-        headers: {
-          authorization: localStorage.getItem("token"),
-        },
+
       }
     );
     return response.data;
@@ -71,16 +65,11 @@ export const getUserFollowers = async (userId, offset = 0) => {
   }
 };
 
-export const getUserFollowings = async (userId, offset = 0) => {
+export const getUserFollowings = async (username, offset = 0) => {
   try {
-    const response = await axios.post(
-      `/api/user/${userId}/followings`,
+    const response = await axios.get(
+      `/api/user/${username}/followings/`,
       { offset },
-      {
-        headers: {
-          authorization: localStorage.getItem("token"),
-        },
-      }
     );
     return response.data;
   } catch (error) {
@@ -121,11 +110,6 @@ export const fetchTheUserMediaTweets = async (userid, offset = 0) => {
     const response = await axios.post(
       `/api/user/${userid}/tweets/media`,
       { offset },
-      {
-        headers: {
-          authorization: localStorage.getItem("token"),
-        },
-      }
     );
     return response.data;
   } catch (error) {
