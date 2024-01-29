@@ -1,18 +1,15 @@
 import axios from "./axios";
 
 export const updateUserProfile = async (
-  bcPic,
-  profilePic,
-  fullName,
   bio,
-  website,
-  location
+  username
 ) => {
   try {
     const response = await axios.put(
-      "/api/user/update/profile",
+      "/api/user/update",
       {
-        bio,
+        username: username,
+        bio: bio,
       },
     );
     return response.data;
@@ -20,6 +17,23 @@ export const updateUserProfile = async (
     throw new Error(error.response.data.error);
   }
 };
+
+export const updateUserProfilePic = async (
+  pic
+) => {
+  try {
+    const response = await axios.post(
+      "/api/user/avatar",
+      {
+        avaatar: pic
+      },
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.error);
+  }
+};
+
 export const fetchUserProfile = async (username) => {
   console.log(username, "csnjns")
   try {
