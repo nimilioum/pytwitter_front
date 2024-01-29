@@ -3,14 +3,7 @@ import axios from "./axios";
 export const postTheTweet = async (caption, pic) => {
     try {
         const response = await axios.post(`/api/posts/`, {
-            caption,
-            files: [
-                pic,
-            ],
-        }, {
-            headers: {
-                authorization: localStorage.getItem('token'),
-            },
+            caption
         });
         return response.data;
     } catch (error) {

@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
 import { signupUser } from "../../store/user/userActions";
 import TextButton from "../Button/TextButton/TextButton";
@@ -9,22 +10,20 @@ import InputFormHeading from "../InputForm/InputFormHeading";
 import {  selectSingupError,selectSingupStart } from "../../store/user/userSelector";
 
 export default function Signup() {
+  const navigate = useNavigate();
   const state = useSelector(state=>state)
   let signupError = selectSingupError(state);
   let singupStart = selectSingupStart(state);
   const dispatch = useDispatch();
-  // const [email, setEmail] = useState("");
-  // const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [phone, setPhone] = useState("");
   const [confPassword, setconfPassword] = useState("");
-  // const [withEmail, setWithEmail] = useState(true);
 
 
   const handelSignupFormSubmit = (e) => {
     e.preventDefault();
     dispatch(signupUser(username,password,confPassword))
+    navigate("/flow/login")
     // signup handel
     // handel error
   };

@@ -38,7 +38,7 @@ export const userSlice = createSlice({
             state.signUPStart = true
         },
         SIGN_IN_SUCCESS: (state, action) => {
-            console.log(action)
+            console.log(action, "uuuuuuuuuuuuuuuuuuuu")
             state.currentUser = action.payload;
             state.token = action.payload.token
             state.signInStart = false

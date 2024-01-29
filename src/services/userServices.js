@@ -21,15 +21,17 @@ export const updateUserProfile = async (
   }
 };
 export const fetchUserProfile = async (username) => {
+  console.log(username, "csnjns")
   try {
     const response = await axios.get(
-      `/api/user/{username}`,
+      `/api/user/${username}`,
     );
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.error);
   }
 };
+
 export const followUser = async (username) => {
   try {
     const response = await axios.post(`/api/user/${username}/follow`, null, );
@@ -38,18 +40,19 @@ export const followUser = async (username) => {
     throw new Error(error.response.data.error);
   }
 };
-// export const unfollowUser = async (userId) => {
-//   try {
-//     const response = await axios.post(`/api/user/${userId}/unfollow`, null, {
-//       headers: {
-//         authorization: localStorage.getItem("token"),
-//       },
-//     });
-//     return response.data;
-//   } catch (error) {
-//     throw new Error(error.response.data.error);
-//   }
-// };
+
+export const unfollowUser = async (userId) => {
+  try {
+    const response = await axios.post(`/api/user/${userId}/unfollow`, null, {
+      headers: {
+        authorization: localStorage.getItem("token"),
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.error);
+  }
+};
 
 export const getUserFollowers = async (userId, offset = 0) => {
   try {
@@ -85,16 +88,10 @@ export const getUserFollowings = async (userId, offset = 0) => {
   }
 };
 
-export const fetchTheUserTweets = async (userid, offset = 0) => {
+export const fetchTheUserTweets = async (username, offset = 0) => {
   try {
-    const response = await axios.post(
-      `/api/user/${userid}/tweets`,
-      { offset },
-      {
-        headers: {
-          authorization: localStorage.getItem("token"),
-        },
-      }
+    const response = await axios.get(
+      `/api/user-posts/${username}/posts/`
     );
     return response.data;
   } catch (error) {

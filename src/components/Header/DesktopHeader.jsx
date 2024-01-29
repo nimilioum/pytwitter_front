@@ -78,32 +78,6 @@ export default function DesktopHeader() {
             </div>
           </NavLink>
           <NavLink
-            to="/notifications"
-            className={({ isActive }) =>
-              "header-link" + (isActive ? " active-header-link" : "")
-            }
-          >
-            <div className="header-link-icon-wrap">
-              <span className="link-icon">
-                <NotificationIcon />
-              </span>
-              <span className="link-text">Notifications</span>
-            </div>
-          </NavLink>
-          <NavLink
-            to="/messages"
-            className={({ isActive }) =>
-              "header-link" + (isActive ? " active-header-link" : "")
-            }
-          >
-            <div className="header-link-icon-wrap">
-              <span className="link-icon">
-                <MessagesIcon />
-              </span>
-              <span className="link-text">Messages</span>
-            </div>
-          </NavLink>
-          <NavLink
             to="/bookmarks"
             className={({ isActive }) =>
               "header-link" + (isActive ? " active-header-link" : "")
@@ -114,19 +88,6 @@ export default function DesktopHeader() {
                 <i className="far fa-bookmark"></i>
               </span>
               <span className="link-text">Bookmarks</span>
-            </div>
-          </NavLink>
-          <NavLink
-            to="/lists"
-            className={({ isActive }) =>
-              "header-link" + (isActive ? " active-header-link" : "")
-            }
-          >
-            <div className="header-link-icon-wrap">
-              <span className="link-icon">
-                <ListsIcon />
-              </span>
-              <span className="link-text">Lists</span>
             </div>
           </NavLink>
           <NavLink
@@ -142,49 +103,6 @@ export default function DesktopHeader() {
               <span className="link-text">Profile</span>
             </div>
           </NavLink>
-          <div
-            className="header-link more-options-container"
-            ref={moreOptionsRef}
-          >
-            <div
-              className="header-link-icon-wrap"
-              onClick={() => setMoreOptionsVisible(true)}
-            >
-              <span className="link-icon">
-                <MoreIcon />
-              </span>
-              <span className="link-text">More</span>
-            </div>
-            <AnimatePresence>
-              {isMoreOptionVisible && (
-                <motion.ul
-                  className={moreOptionsClassnames}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ y: -50, opacity: 0 }}
-                >
-                  <Link to="/settings/account" className="more-options-link">
-                    <span className="icon-container">
-                      <i className="far fa-cog"></i>
-                    </span>
-                    <span className="link-text-two">Settings and privacy</span>
-                  </Link>
-                  <Link to="/display" className="more-options-link">
-                    <span className="icon-container">
-                      <i className="far fa-edit"></i>
-                    </span>
-                    <span className="link-text-two">Display</span>
-                  </Link>
-                  <Link to="/help" className="more-options-link">
-                    <span className="icon-container">
-                      <i className="far fa-question-circle"></i>
-                    </span>
-                    <span className="link-text-two">Help Center</span>
-                  </Link>
-                </motion.ul>
-              )}
-            </AnimatePresence>
-          </div>
         </ul>
         <div className="header-conatiner tweet-btn-container">
           <LinkButton

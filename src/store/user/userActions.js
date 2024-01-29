@@ -1,7 +1,7 @@
 import {
     googleAuthentication,
     githubAuthentication,
-    signupWithEmail,
+    signupWithUsername,
     getCurrentUser,
     loginWithUsername,
 } from "../../services/authenticationServices"
@@ -85,9 +85,8 @@ export const signupUser = (username, password, confPassword) => async (dispatch)
         dispatch(SIGN_UP_START())
         verifyUsername(username)
         verifyPassword(password, confPassword);
-        const user = await signupWithEmail(username, password);
+        const user = await signupWithUsername(username, password);
         // signup success dispatch
-        // localStorage.setItem('token', user.token)
         dispatch(SIGN_UP_SUCCESS(user))
     } catch (error) {
         // signup fail dispatch
@@ -177,14 +176,17 @@ export const unfollowTheUser = (userid, type) => async (dispatch) => {
         cogoToast.error(error.message)
     }
 }
-export const postTweet = (caption, pic = null,tweet) => async (dispatch) => {
+export const postTweet = (caption, pic=null, tweet) => async (dispatch) => {
     try {
         // if(!caption) dispatch error
         if(!caption){
            return dispatch(POSTING_TWEET_FAILED('No caption provided'))
         }
         dispatch(POSTING_TWEET_STARTED())
-        if(!tweet){await postTheTweet(caption, pic,null);dispatch(POSTING_TWEET_FINISED())}
+        if(!tweet){
+            await postTheTweet(caption, pic,null);
+            dispatch(POSTING_TWEET_FINISED())
+        }
         else{
              await postTheTweet(caption, pic,tweet._id);
             dispatch(POSTING_TWEET_FINISED())

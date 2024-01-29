@@ -271,7 +271,7 @@ export default function Tweet({
               </span>
               <span className="tweet-content-child useless-dot"></span>
               <span className="tweet-content-child timestamp">
-                {moment(tweet.createdAt).fromNow()}
+                {moment(tweet.created_at).fromNow()}
               </span>
             </div>
 

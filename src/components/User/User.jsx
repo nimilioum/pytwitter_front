@@ -202,7 +202,7 @@ export default function User() {
                       <i className="far fa-calendar-alt"></i>
                     </span>
                     <span className="joindate-text">
-                      Joined {moment(guestUser.joindate).fromNow()}
+                      Joined {moment(guestUser.created_at).fromNow()}
                     </span>
                   </div>
                 </div>

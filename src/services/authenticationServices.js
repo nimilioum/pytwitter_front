@@ -55,16 +55,19 @@ export const githubAuthentication = async (code) => {
     }
 }
 
-export const signupWithEmail = async (username, password) => {
+export const signupWithUsername = async (username, password) => {
     try {
         const response = await axios.post('/api/auth/register/', {
 
             username,
             password,
         });
+        console.log(response, "CMKFMFWN")
         return response.data;
     } catch (error) {
-        throw new Error(error.response.data.error)
+        if (error.response.status == 400) {
+            throw new Error("username already exists")
+        }
     }
 
 }

@@ -12,16 +12,17 @@ export const setupInterceptors =(navigate,dispatch)=>{
     return request
   })
 
-  axios.interceptors.response.use(function (response) {
-    return response;
-  }, function (error) {
+  // axios.interceptors.response.use(function (response) {
+  //   return response;
+  // }, function (error) {
     
-    const redirectToLoginCodes = [400,401,403]
-    if (redirectToLoginCodes.includes(error.response.status)){
-      dispatch(logout())
-    }
-    return Promise.reject(error);
-  })
+  //   const redirectToLoginCodes = [400,401,403]
+  //   console.log(error.response.status, "vodvuuiu")
+  //   if (redirectToLoginCodes.includes(error.response.status)){
+  //     dispatch(logout())
+  //   }
+  //   return Promise.reject(error);
+  // })
 }
 
 export default axios;

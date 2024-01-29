@@ -75,7 +75,7 @@ export default function Login() {
           </TextButton>
           <div className="signup-option">
             <p className="signup-option-text">Don't have an account?</p>
-            <Link to="/" className="default-link">
+            <Link to="/flow/signup" className="default-link">
               Sign up
             </Link>
           </div>
