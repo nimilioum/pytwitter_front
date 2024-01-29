@@ -116,7 +116,7 @@ export default function User() {
                 {!profileImageLoaded && <SimpleSpinner />}
               </div>
               <div className="profile-options">
-                {currentUser._id === guestUser._id ? (
+                {currentUser.username === guestUser.username ? (
                   <TextButton
                     rounded
                     className="edit-profile-btn"
@@ -158,7 +158,7 @@ export default function User() {
               </div>
               <div className="user-other-details">
                 <div className="user-fullname-container container">
-                  <span className="user-fullname">
+                  {/* <span className="user-fullname">
                     <span>{guestUser.fullName}</span>
                     {guestUser.isVerified && (
                       <span className="verified-icon">
@@ -169,7 +169,7 @@ export default function User() {
                         />
                       </span>
                     )}{" "}
-                  </span>
+                  </span> */}
                   <span className="user-username">@{guestUser.username}</span>
                 </div>
 
@@ -179,7 +179,7 @@ export default function User() {
                   </span>
                 </div>
                 <div className="user-sitelink-joindate-container container">
-                  <div className="user-location">
+                  {/* <div className="user-location">
                     <span className="icon-container location-icon">
                       <i className="far fa-map-marker-alt"></i>
                     </span>
@@ -196,7 +196,7 @@ export default function User() {
                         </Linkify>
                       </>
                     )}
-                  </div>
+                  </div> */}
                   <div className="joindate-container">
                     <span className="icon-container calender-icon">
                       <i className="far fa-calendar-alt"></i>
@@ -208,10 +208,10 @@ export default function User() {
                 </div>
                 <div className="user-follow-container container">
                   <Link to="following" className="followings-info ">
-                    <b>{guestUser.followingsCount}</b> Following
+                    <b>{guestUser.followings}</b> Following
                   </Link>
                   <Link to="followers" className="followings-info ">
-                    <b>{guestUser.followersCount}</b> Followers
+                    <b>{guestUser.followers}</b> Followers
                   </Link>
                 </div>
               </div>
@@ -237,7 +237,7 @@ export default function User() {
                     Tweets & replies
                     <span className="custom-border-bottom"></span>
                   </NavLink>
-                  <NavLink
+                  {/* <NavLink
                     className={({ isActive }) =>
                       "user-link" + (isActive ? " active-other-link" : "")
                     }
@@ -245,7 +245,7 @@ export default function User() {
                   >
                     Media
                     <span className="custom-border-bottom"></span>
-                  </NavLink>
+                  </NavLink> */}
                   <NavLink
                     className={({ isActive }) =>
                       "user-link" + (isActive ? " active-other-link" : "")

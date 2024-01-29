@@ -21,6 +21,7 @@ import cogoToast from 'cogo-toast';
 
 
 export const fetchUser = (username) => async (dispatch) => {
+    console.log("eivnienivenvue")
     try {
         dispatch(FETCHING_STARTED())
         const guestUser = await fetchUserProfile(username);

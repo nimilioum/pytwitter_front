@@ -16,7 +16,7 @@ export default function Tweets() {
   return (
     <>
       <div className="tweets-wrap" style={{ position: "relative" }}>
-        {data && <SimpleSpinner topCenter/>}
+        {/* {data && <SimpleSpinner topCenter/>} */}
         {data && data.map(tweet=><Tweet tweet={tweet} key={tweet.id} />)}
 
         {data.length === 0 && (

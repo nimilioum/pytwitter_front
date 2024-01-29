@@ -22,6 +22,7 @@ export default function Tweetpage() {
   const tweet = useSelector((state) => state.feed.tweet);
   const fetching = useSelector((state) => state.feed.fetchingTweet);
   const fetchingError = useSelector(state=>state.feed.fetchingTweetError)
+  console.log(tweet, fetchingError, "vnuenvunwinvwini")
   const fetchingMoreTweets = useRef(false);
   const hasMore = useSelector((state) => state.feed.hasMoreTweetReplies);
   const [searchQuery,setSearchQuery] = useState('')
@@ -34,7 +35,7 @@ export default function Tweetpage() {
     if (!fetchingMoreTweets.current && !fetching && hasMore) {
       try {
         fetchingMoreTweets.current = (true);
-        const replies = await fetchReplies(tweet.replies.length,tweet._id);
+        const replies = await fetchReplies(tweet.comments.length, tweet.id);
         dispatch(FETCHING_TWEET_REPLIES_SUCCESS(replies));
         fetchingMoreTweets.current = (false);
       } catch (error) {
@@ -61,12 +62,12 @@ export default function Tweetpage() {
                       isParentTweet
                       className="tweetpage-main-tweet"
                       from="parentTweet"
-                      key={tweet.hasParentTweet._id}
+                      key={tweet.hasParentTweet.id}
                     />
                   </div>
                 )}
 
-                <Tweet tweet={tweet} className="tweetpage-main-tweet" key={tweet._id} from='replyTweet' newlook/>
+                <Tweet tweet={tweet} className="tweetpage-main-tweet" key={tweet.id} from='replyTweet' newlook/>
                 <div className="replying-to">
                   <span>
                     Replaying to{" "}
@@ -90,7 +91,7 @@ export default function Tweetpage() {
                       tweet={tweet}
                       from="tweet-page-replies"
                       className="tweet-page-replies"
-                      key={tweet._id}
+                      key={tweet.id}
                       
                     />
                   ))}

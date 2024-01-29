@@ -74,7 +74,15 @@ export const signupWithUsername = async (username, password) => {
 
 export const getCurrentUser = async (username) => {
     try {
-        const response = await axios.get(`/api/user/${username}`);
+        const token = localStorage.getItem('token')
+        if (!token) {
+            return false
+        }
+        const response = await axios.get(`/api/user/${username}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            } 
+        });
         console.log(response.data)
         return response.data;
     } catch (error) {

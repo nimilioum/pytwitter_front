@@ -224,7 +224,7 @@ export default function Tweet({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       onClick={() =>
-        navigate("/" + tweet.user.username + "/status/" + tweet._id)
+        navigate("/" + tweet.user.username + "/status/" + tweet.id)
       }
       className={tweetClasses}
     >
@@ -247,7 +247,7 @@ export default function Tweet({
       )}
       <div className="tweet tweet-container">
         <div className="profile-pic-container">
-          <img src={tweet.user.avatar} alt="user-pic" className="profile-pic" />
+          {/* <img src={tweet.user.avatar} alt="user-pic" className="profile-pic" /> */}
         </div>
         {isParentTweet && <span className="hr-line"></span>}
         <div className="tweet-content">

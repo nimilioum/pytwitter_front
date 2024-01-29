@@ -108,6 +108,7 @@ export const feedSlice = createSlice({
             state.fetchingTweet = true;
         },
         FETCHING_TWEET_SUCCESS: (state, action) => {
+            console.log(action, "vndovnosnwowowdko")
             state.tweet = action.payload;
             state.fetchingTweet = false;
         },

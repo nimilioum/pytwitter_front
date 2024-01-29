@@ -63,7 +63,7 @@ export const fetchTweet = (tweetid) => async (dispatch) => {
         if (!tweetid) throw new Error('No tweet id provided')
         dispatch(FETCHING_TWEET_STARTED())
         const data = await fetchTheTweet(tweetid);
-        dispatch(FETCHING_TWEET_SUCCESS(data.tweet))
+        dispatch(FETCHING_TWEET_SUCCESS(data))
     } catch (error) {
         cogoToast.error(error.message)
         dispatch(FETCHING_TWEET_FAIL(error.message))

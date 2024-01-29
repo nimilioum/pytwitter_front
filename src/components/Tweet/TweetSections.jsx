@@ -32,10 +32,10 @@ export default function TweetSections() {
     error
   } = useInfiniteQuery(
     "feed-tweets",
-    ({ pageParam }) => fetchUserFeedTweets(currentUser._id, pageParam),
+    ({ pageParam }) => fetchUserFeedTweets(currentUser.username, pageParam),
     {
       getNextPageParam: (lastPage, pages) => {
-        if (lastPage.length >= 5) {
+        if (lastPage.length >= 20) {
           return pages.length * 5;
         }
         return undefined;
@@ -48,14 +48,14 @@ export default function TweetSections() {
     window.scrollTo(0,0)
   }, []);
 
-  useBottomScrollListener(
-    async () => {
-      if (!isFetchingNextPage && hasNextPage) {
-        fetchNextPage();
-      }
-    },
-    { offset: defaultOffset }
-  );
+  // useBottomScrollListener(
+  //   async () => {
+  //     if (!isFetchingNextPage && hasNextPage) {
+  //       fetchNextPage();
+  //     }
+  //   },
+  //   { offset: defaultOffset }
+  // );
   return (
     <>
       <div className="tweets-search-news-sections two-flex-col-container">
@@ -69,18 +69,18 @@ export default function TweetSections() {
             {feedTweets &&
               feedTweets.length !== 0 &&
               feedTweets.pages.map((page) =>
-                page.map((tweet) => <Tweet tweet={tweet} key={tweet._id} />)
+                page.map((tweet) => <Tweet tweet={tweet} key={tweet.id} />)
               )}
             {!fetching && feedTweets.length === 0 && (
               <WhoToFollow headerText="Suggestion" />
             )}
             {fetching && !feedTweets && <SimpleSpinner topCenter />}
 
-            {isFetchingNextPage && (
+            {/* {isFetchingNextPage && (
               <div className="loading-more-tweets">
                 <SimpleSpinner topCenter />
               </div>
-            )}
+            )} */}
             {!hasNextPage && !fetching && <AllCaughtUp />}
             {error && cogoToast.error(error)}
           </div>
