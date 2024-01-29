@@ -203,9 +203,8 @@ export const getMentionsNotifications = async (offset = 0) => {
 
 export const fetchBookmarks = async (offset = 0) => {
   try {
-    const response = await axios.post(
-      `/api/user/bookmarks`,
-      { offset },
+    const response = await axios.get(
+      `/api/user-posts/bookmarks/`,
     );
     return response.data;
   } catch (error) {

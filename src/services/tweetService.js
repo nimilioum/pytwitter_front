@@ -13,10 +13,8 @@ export const postTheTweet = async (caption, pic) => {
 
 export const likeTheTweet = async (tweetid) => {
     try {
-        const response = await axios.post(`/api/tweet/${tweetid}/like`, null, {
-            headers: {
-                authorization: localStorage.getItem('token'),
-            },
+        const response = await axios.post(`/api/posts/${tweetid}/like/`, null, {
+
         });
         return response.data;
     } catch (error) {
@@ -25,10 +23,8 @@ export const likeTheTweet = async (tweetid) => {
 }
 export const unlikeTheTweet = async (tweetid) => {
     try {
-        const response = await axios.post(`/api/tweet/${tweetid}/unlike`, null, {
-            headers: {
-                authorization: localStorage.getItem('token'),
-            },
+        const response = await axios.post(`/api/posts/${tweetid}/like/`, null, {
+
         });
         return response.data;
     } catch (error) {
@@ -61,10 +57,8 @@ export const  postTheTweetReply = async(tweetText, tweetPic,tweetid)=>{
 
 export const  postTheRetweet = async(tweetid)=>{
     try {
-        const response = await axios.post(`/api/tweet/post/${tweetid}/retweet`, null, {
-            headers: {
-                authorization: localStorage.getItem('token'),
-            },
+        const response = await axios.post(`/api/posts/${tweetid}/retweet`, null, {
+
         });
         return response.data;
     } catch (error) {
@@ -74,10 +68,8 @@ export const  postTheRetweet = async(tweetid)=>{
 
 export const  deleteTheRetweet = async(tweetid)=>{
     try {
-        const response = await axios.post(`/api/tweet/post/${tweetid}/retweet/`,  {
-            headers: {
-                authorization: localStorage.getItem('token'),
-            },
+        const response = await axios.post(`/api/posts/${tweetid}/retweet/`,  {
+
         });
         return response.data;
     } catch (error) {
@@ -111,11 +103,7 @@ export const  fetchReplies = async(offset=0, tweetid)=>{
 
 export const  bookmarkTweet = async(tweetid)=>{
     try {
-        const response = await axios.post(`/api/tweet/${tweetid}/bookmark`,null , {
-            headers: {
-                authorization: localStorage.getItem('token'),
-            },
-        });
+        const response = await axios.post(`/api/posts/${tweetid}/save/`,null , );
         return response.data;
     } catch (error) {
         throw new Error(error.response.data.error);
@@ -124,11 +112,7 @@ export const  bookmarkTweet = async(tweetid)=>{
 
 export const  removeBookmarkTweet = async(tweetid)=>{
     try {
-        const response = await axios.delete(`/api/tweet/${tweetid}/bookmark` , {
-            headers: {
-                authorization: localStorage.getItem('token'),
-            },
-        });
+        const response = await axios.post(`/api/posts/${tweetid}/save` , null);
         return response.data;
     } catch (error) {
         throw new Error(error.response.data.error);

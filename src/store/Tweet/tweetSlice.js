@@ -26,52 +26,53 @@ export const tweetSlice = createSlice({
             state.fetching = true;
         },
         TWEET_LIKED_SUCCESS:(state)=>{
-            state.tweet.isLiked = true;
-            state.tweet.likesCount+=1;
+            state.tweet.is_liked = true;
+            state.tweet.likes+=1;
+            console.log(state.tweet.is_liked)
         },
         TWEET_LIKED_FAILED:(state)=>{
-            state.tweet.isLiked = false;
-            state.tweet.likesCount-=1;
+            state.tweet.is_liked = false;
+            state.tweet.likes-=1;
         },
         TWEET_UNLIKED_SUCCESS:(state)=>{
-            state.tweet.isLiked = false;
-            state.tweet.likesCount-=1;
+            state.tweet.is_liked = false;
+            state.tweet.likes-=1;
         },
         TWEET_UNLIKED_FAILED:(state)=>{
-            state.tweet.isLiked = true;
-            state.tweet.likesCount+=1;
+            state.tweet.is_liked = true;
+            state.tweet.likes+=1;
         },
         TWEET_RETWEETED_SUCCESS:(state)=>{
-            state.tweet.isRetweeted = true
-            state.tweet.retweetCount+=1;
+            state.tweet.is_retweeted = true
+            state.tweet.retweets+=1;
         },
         TWEET_RETWEETED_FAILED:(state)=>{
-            state.tweet.isRetweeted = false;
-            state.tweet.retweetCount-=1;
+            state.tweet.is_retweeted = false;
+            state.tweet.retweets-=1;
         },
         TWEET_USER_FOLLOW_SUCCESS:(state)=>{
-            state.tweet.isFollowing = true;
+            state.tweet.is_followed = true;
         },
         TWEET_USER_UNFOLLOW_SUCCESS:(state)=>{
-            state.tweet.isFollowing = false;
+            state.tweet.is_followed = false;
         },
         TWEET_USER_FOLLOW_FAILED:(state)=>{
-            state.tweet.isFollowing = false;
+            state.tweet.is_followed = false;
         },
         TWEET_USER_UNFOLLOW_FAILED:(state)=>{
-            state.tweet.isFollowing = true;
+            state.tweet.is_followed = true;
         },
         TWEET_BOOKMARK_FAILED:(state)=>{
-            state.tweet.isBookmarked = false;
+            state.tweet.is_bookmarked = false;
         },
         TWEET_BOOKMARK_SUCCESS:(state)=>{
-            state.tweet.isBookmarked = true;
+            state.tweet.is_bookmarked = true;
         },
         TWEET_REMOVEBOOKMARK_FAILED:(state)=>{
-            state.tweet.isBookmarked = true;
+            state.tweet.is_bookmarked = true;
         },
         TWEET_REMOVEBOOKMARK_SUCCESS:(state)=>{
-            state.tweet.isBookmarked = false;
+            state.tweet.is_bookmarked = false;
         },
 
     },
