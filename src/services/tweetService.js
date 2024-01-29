@@ -103,7 +103,7 @@ export const  fetchReplies = async(offset=0, tweetid)=>{
 
 export const  bookmarkTweet = async(tweetid)=>{
     try {
-        const response = await axios.post(`/api/posts/${tweetid}/save`,null , );
+        const response = await axios.post(`/api/posts/${tweetid}/save/`,null , );
         return response.data;
     } catch (error) {
         throw new Error(error.response.data.error);
