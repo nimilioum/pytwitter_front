@@ -23,7 +23,8 @@ export default function SearchTop() {
     const fetchData = async () => {
       try {
         dispatch(FETCHING_TWEETS_STARTED());
-        const tweets = await searchTweets(query, "top");
+        let tweets = await searchTweets(query, "top");
+        tweets = tweets.results;
         dispatch(FETCHING_TWEETS_SUCCESS(tweets));
       } catch (error) {
         cogoToast.error(error.message);

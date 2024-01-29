@@ -27,7 +27,7 @@ function Searchbar({ className, input, setInput }) {
         setResultVisible(true);
         const users = await searchUsers(value);
         if (users.length < 10) setHasMore(false);
-        setUsers(users);
+        setUsers(users.results);
         setFetching(false);
       }
       if (value) fetchUsers();

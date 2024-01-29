@@ -23,7 +23,9 @@ export default function SearchLatest() {
     const fetchData = async () => {
       try {
         dispatch(FETCHING_TWEETS_STARTED());
-        const tweets = await searchTweets(query, "live");
+        let tweets = await searchTweets(query);
+        console.log("tweets")
+        tweets = tweets.results
         dispatch(FETCHING_TWEETS_SUCCESS(tweets));
       } catch (error) {
         cogoToast.error(error.message);
@@ -37,7 +39,7 @@ export default function SearchLatest() {
       {fetching && <SimpleSpinner topCenter/>}
       {!fetching &&
         !fetchingTweetError &&
-        tweets.map((tweet) => <Tweet tweet={tweet} key={tweet._id} />)}
+        tweets.map((tweet) => <Tweet tweet={tweet} key={tweet.id} />)}
     </div>
   );
 }

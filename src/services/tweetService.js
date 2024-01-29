@@ -80,7 +80,7 @@ export const  postTheRetweet = async(tweetid)=>{
 
 export const  deleteTheRetweet = async(tweetid)=>{
     try {
-        const response = await axios.delete(`/api/tweet/post/${tweetid}/retweet/delete`,  {
+        const response = await axios.post(`/api/tweet/post/${tweetid}/retweet/`,  {
             headers: {
                 authorization: localStorage.getItem('token'),
             },
@@ -91,16 +91,9 @@ export const  deleteTheRetweet = async(tweetid)=>{
     }
 }
 
-export const  searchTweets = async(query,filter)=>{
+export const  searchTweets = async(query)=>{
     try {
-        const response = await axios.post(`/api/search/tweets/`,{
-            query,
-            filter
-        } , {
-            headers: {
-                authorization: localStorage.getItem('token'),
-            },
-        });
+        const response = await axios.get(`/api/posts/?search=${query}`,);
         return response.data;
     } catch (error) {
         throw new Error(error.response.data.error);

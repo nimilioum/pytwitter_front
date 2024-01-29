@@ -16,7 +16,7 @@ export default function FollowUser({ user, type }) {
   const state = useSelector((state) => state);
   const currentUser = selectCurrentUser(state);
   const [followingText, setFollowingText] = useState("Following");
-  const [following, setIsFollowing] = useState(user.isFollowing);
+  const [following, setIsFollowing] = useState(user.is_followed);
 
   const mutation = useMutation(followUser, {
     onSuccess: () => {
@@ -41,7 +41,7 @@ export default function FollowUser({ user, type }) {
         <div className="profile-details">
           <Link to={"/" + user.username} className="user-fullname">
             <span className="warp-user-fullname">
-              {user.fullName}
+              {user.username}
               {user.isVerified && (
                 <span className="verfied-icon" title="Verified">
                   <img
@@ -58,11 +58,11 @@ export default function FollowUser({ user, type }) {
 
       <div className="follow-btn-container">
         {!following ? (
-          user._id !== currentUser._id && (
+          user.username !== currentUser.username && (
             <TextButton
               disabled={mutation.isLoading}
               className="follow-btn"
-              onClick={() => mutation.mutate(user._id)}
+              onClick={() => mutation.mutate(user.username)}
             >
               Follow
             </TextButton>
@@ -76,7 +76,7 @@ export default function FollowUser({ user, type }) {
             onClick={() =>
               dispatch(
                 SHOW_UNFOLLOW_MODEL({
-                  user: { username: user.username, _id: user._id },
+                  user: { username: user.username },
                   type,
                 })
               )

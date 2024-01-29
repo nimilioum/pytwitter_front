@@ -164,9 +164,8 @@ export const fetchSuggstedUsers = async () => {
 
 export const searchUsers = async (text, offset = 0) => {
   try {
-    const response = await axios.post(
-      `/api/user/search/users`,
-      { term: text, offset },
+    const response = await axios.get(
+      `/api/user/?search=${text}&offset=${offset}`,
     );
     return response.data;
   } catch (error) {
