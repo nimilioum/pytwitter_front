@@ -11,7 +11,7 @@ COPY . /app
 RUN npm install
 
 # Make sure the code inside the container is synced with your local code
-RUN npm link ../react-scripts
+# RUN npm link ../react-scripts
 
 # Start the development server
 CMD ["npm", "start"]
