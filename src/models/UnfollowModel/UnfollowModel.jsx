@@ -44,7 +44,7 @@ export default function UnfollowModel() {
             rounded
             className="unfollow-btn unfollowbtn"
             onClick={() =>
-              mutation.mutate(model.userToUnfollow._id)
+              mutation.mutate(model.userToUnfollow.username)
             }
           >
             Unfollow
