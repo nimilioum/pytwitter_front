@@ -124,12 +124,13 @@ export default function Tweet({
     e.stopPropagation();
     // OR
     e.preventDefault();
-    if (!tweet.isLiked) {
+    if (!tweet.is_liked) {
       dispatch(TWEET_LIKED_SUCCESS());
-      await likeTheTweet(tweet._id);
+      await likeTheTweet(tweet.id);
+      console.log(tweet.is_liked)
     } else {
       dispatch(TWEET_LIKED_FAILED());
-      await unlikeTheTweet(tweet._id);
+      await unlikeTheTweet(tweet.id);
     }
   };
   const handelTweetReply = (e) => {
@@ -146,17 +147,17 @@ export default function Tweet({
     // OR
     e.preventDefault();
 
-    if (!tweet.isRetweeted) {
+    if (!tweet.is_retweeted) {
       try {
         dispatch(TWEET_RETWEETED_SUCCESS());
-        await postTheRetweet(tweet._id);
+        await postTheRetweet(tweet.id);
       } catch (error) {
         dispatch(TWEET_RETWEETED_FAILED());
       }
     } else {
       try {
         dispatch(TWEET_RETWEETED_FAILED());
-        await deleteTheRetweet(tweet._id);
+        await deleteTheRetweet(tweet.id);
       } catch (error) {
         dispatch(TWEET_RETWEETED_SUCCESS());
       }
@@ -180,7 +181,7 @@ export default function Tweet({
     e.stopPropagation();
     try {
       dispatch(TWEET_BOOKMARK_SUCCESS());
-      await bookmarkTweet(tweet._id);
+      await bookmarkTweet(tweet.id);
       cogoToast.success("Bookmarked successfully!");
     } catch (error) {
       cogoToast.error(error.message);
@@ -191,7 +192,7 @@ export default function Tweet({
     e.stopPropagation();
     try {
       dispatch(TWEET_REMOVEBOOKMARK_SUCCESS());
-      await removeBookmarkTweet(tweet._id);
+      await removeBookmarkTweet(tweet.id);
       cogoToast.success("Bookmark removed successfully!");
     } catch (error) {
       cogoToast.error(error.message);
@@ -239,7 +240,7 @@ export default function Tweet({
             />
           </span>
           <span className="retweeted-text">
-            {currentUser._id === guestUser._id
+            {currentUser.id === guestUser.id
               ? "You Retweeted"
               : guestUser.username + " Retweeted"}
           </span>
@@ -327,7 +328,7 @@ export default function Tweet({
                   </div>
 
                   <span className="tweet-comment-count">
-                    {tweet.replyCount}
+                    {tweet.replies_count}
                   </span>
                 </div>
                 <div
@@ -341,7 +342,7 @@ export default function Tweet({
                     >
                       <RetweetIcon
                         fill={
-                          tweet.isRetweeted
+                          tweet.is_retweeted
                             ? "rgba(29, 155, 240, 0.8)"
                             : "#536471"
                         }
@@ -368,7 +369,7 @@ export default function Tweet({
                   </div>
 
                   <span className="tweet-comment-count">
-                    {tweet.retweetCount}
+                    {tweet.retweets}
                   </span>
                 </div>
                 <div className="tweet-actions-child like-tweet">
@@ -384,7 +385,7 @@ export default function Tweet({
                             : "fa-regular fa-heart"
                         }
                         style={{
-                          color: tweet.isLiked ? "light-red" : "#536471",
+                          color: tweet.is_liked ? "light-red" : "#536471",
                         }}
                       ></i>
                     </TextButton>
@@ -393,7 +394,7 @@ export default function Tweet({
                   </div>
 
                   <span className="tweet-comment-count">
-                    {tweet.likesCount}
+                    {tweet.likes}
                   </span>
                 </div>
               </div>
