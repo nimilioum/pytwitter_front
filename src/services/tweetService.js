@@ -48,13 +48,10 @@ export const fetchTheTweet = async(tweetid)=>{
 
 export const  postTheTweetReply = async(tweetText, tweetPic,tweetid)=>{
     try {
-        const response = await axios.post(`/api/tweet/post/${tweetid}/reply`, {
-            tweetText,
-            tweetPic,
-        }, {
-            headers: {
-                authorization: localStorage.getItem('token'),
-            },
+        console.log(tweetid, "fwfw")
+        const response = await axios.post(`/api/posts/`, {
+            caption: tweetText,
+            reply_to: tweetid
         });
         return response.data;
     } catch (error) {
@@ -97,7 +94,7 @@ export const  searchTweets = async(query)=>{
     }
 }
 
-export const  fetchReplies = async(offset=0,tweetid)=>{
+export const  fetchReplies = async(offset=0, tweetid)=>{
     try {
         const response = await axios.post(`/api/tweet/${tweetid}/replies`,{
             offset

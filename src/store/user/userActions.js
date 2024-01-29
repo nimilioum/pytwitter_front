@@ -205,6 +205,7 @@ export const postTweetReply = (tweetText,tweetPic=null,tweetid) => async (dispat
            return dispatch(POSTING_TWEET_REPLY_FAILED('Insufficent data provided'))
         }
         dispatch(POSTING_TWEET_REPLY_STARTED())
+        console.log("wioqodcmvnmvnvisnvwjsnvj")
         await postTheTweetReply(tweetText, tweetPic,tweetid);
         // dispatch success
         dispatch(POSTING_TWEET_REPLY_FINISED())

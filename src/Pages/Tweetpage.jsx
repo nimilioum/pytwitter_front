@@ -22,7 +22,6 @@ export default function Tweetpage() {
   const tweet = useSelector((state) => state.feed.tweet);
   const fetching = useSelector((state) => state.feed.fetchingTweet);
   const fetchingError = useSelector(state=>state.feed.fetchingTweetError)
-  console.log(tweet, fetchingError, "vnuenvunwinvwini")
   const fetchingMoreTweets = useRef(false);
   const hasMore = useSelector((state) => state.feed.hasMoreTweetReplies);
   const [searchQuery,setSearchQuery] = useState('')
@@ -35,8 +34,10 @@ export default function Tweetpage() {
     if (!fetchingMoreTweets.current && !fetching && hasMore) {
       try {
         fetchingMoreTweets.current = (true);
-        const replies = await fetchReplies(tweet.comments.length, tweet.id);
-        dispatch(FETCHING_TWEET_REPLIES_SUCCESS(replies));
+        if (tweet.comments.length) {
+          // const replies = tweet.comments;
+          // dispatch(FETCHING_TWEET_REPLIES_SUCCESS(replies));
+        }
         fetchingMoreTweets.current = (false);
       } catch (error) {
         fetchingMoreTweets.current = (false);
@@ -86,7 +87,7 @@ export default function Tweetpage() {
                   className="tweetpage-send-tweet"
                 />
                 <div className="tweet-replies">
-                  {tweet.replies.map((tweet) => (
+                  {tweet.comments.map((tweet) => (
                     <Tweet
                       tweet={tweet}
                       from="tweet-page-replies"

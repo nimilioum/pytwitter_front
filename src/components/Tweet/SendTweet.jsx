@@ -10,7 +10,7 @@ import classNames from "classnames";
 import Picker from "emoji-picker-react";
 import { useSelector,useDispatch } from "react-redux";
 import { selectCurrentUser } from "../../store/user/userSelector";
-import { postTheTweet } from "../../services/tweetService";
+import { postTheTweet, postTheTweetReply } from "../../services/tweetService";
 import { POSTING_TWEET_FAILED, POSTING_TWEET_FINISED, POSTING_TWEET_STARTED } from "../../store/user/userSlice";
 import { POSTING_TWEET_REPLY_SUCCESS } from "../../store/feed/feedSlice";
 import cogoToast from 'cogo-toast';
@@ -53,9 +53,12 @@ export default function SendTweet({ className,placeholder,tweet=null }) {
          return dispatch(POSTING_TWEET_FAILED('No caption provided'))
       }
       dispatch(POSTING_TWEET_STARTED())
-      if(!tweet){await postTheTweet(tweetText, tweetPic,null);cogoToast.success('Tweet posted successfully 👍')}
+      if(!tweet){
+        await postTheTweet(tweetText, tweetPic, null);
+        cogoToast.success('Tweet posted successfully 👍')
+      }
       else{
-        const data =   await postTheTweet(tweetText, tweetPic,tweet._id);
+        const data =  await postTheTweetReply(tweetText, tweetPic, tweet.id);
           dispatch(POSTING_TWEET_REPLY_SUCCESS({
             _id:data._id,
             user:currentUser,

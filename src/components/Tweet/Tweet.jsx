@@ -478,9 +478,9 @@ export default function Tweet({
           <Link to="retweets" className="tweet-info-link">
             <b>{tweet.retweetCount}</b> Retweets
           </Link>
-          <Link to="quote-tweets" className="tweet-info-link">
+          {/* <Link to="quote-tweets" className="tweet-info-link">
             <b>{tweet.retweetCount}</b> Quote Retweets
-          </Link>
+          </Link> */}
           <Link to="likes" className="tweet-info-link">
             <b>{tweet.likesCount}</b> Likes
           </Link>
