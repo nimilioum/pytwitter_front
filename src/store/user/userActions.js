@@ -9,7 +9,7 @@ import {
     postTheTweet, postTheTweetReply
 } from "../../services/tweetService";
 import {
-    updateUserProfile
+    updateUserProfile, updateUserProfilePic
 } from "../../services/userServices";
 
 import {
@@ -125,11 +125,11 @@ export const logout = () => dispatch => {
     localStorage.removeItem('token')
     dispatch(LOGOUT_USER())
 }
-export const updateProfile = (bcPic, profilePic, fullName, bio, website, location) => async (dispatch) => {
+export const updateProfile = (bio, username) => async (dispatch) => {
     try {
         // dispatch update profile start
         dispatch(UPDATING_PROFILE_STARTED())
-        await updateUserProfile(bcPic, profilePic, fullName, bio, website, location);
+        await updateUserProfile(bio, username);
         // dispatch update profile success
         dispatch(UPDATING_PROFILE_FINISHED())
         cogoToast.success('Profile updated successfully 👍 ')
@@ -139,6 +139,22 @@ export const updateProfile = (bcPic, profilePic, fullName, bio, website, locatio
         cogoToast.error(error.message)
     }
 }
+
+export const updateProfilePic = (profilePic) => async (dispatch) => {
+    try {
+        // dispatch update profile start
+        // dispatch(UPDATING_PROFILE_STARTED())
+        await updateUserProfilePic(profilePic);
+        // dispatch update profile success
+        // dispatch(UPDATING_PROFILE_FINISHED())
+        cogoToast.success('Profile updated successfully 👍 ')
+    } catch (error) {
+        dispatch(UPDATING_PROFILE_ERROR(error.message))
+        dispatch(UPDATING_PROFILE_FINISHED())
+        cogoToast.error(error.message)
+    }
+}
+
 
 export const followTheUser = (userid, type) => async (dispatch) => {
     try {

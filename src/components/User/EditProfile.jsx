@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updateProfile } from "../../store/user/userActions";
+import { updateProfile, updateProfilePic } from "../../store/user/userActions";
 import { selectCurrentUser, selectUpdatingProfile } from "../../store/user/userSelector";
 import TextButton from "../Button/TextButton/TextButton";
 import Input from "../Input/Input";
@@ -16,11 +16,8 @@ export default function EditProfile() {
   const state = useSelector((state) => state);
   let user = selectCurrentUser(state);
   const updatingProfile = selectUpdatingProfile(state)
-  const [fullName, setFullName] = useState(user.fullName ?? "");
-  const [website, setWebsite] = useState(user.website ?? "");
+  const [username, setUsername] = useState(user.username ?? "");
   const [bio, setBio] = useState(user.bio ?? "");
-  const [location, setLocation] = useState(user.location ?? "");
-  const [bcPic, setBcPic] = useState(user.backgroundImage);
   const [profilePic, setProfilePic] = useState(user.avatar);
   const navigate = useNavigate();
   const handelProfilePicChange = (e) => {
@@ -35,22 +32,23 @@ export default function EditProfile() {
       alert(error.message);
     }
   };
-  const handelpbcPicChange = (e) => {
-    try {
-      const [file] = e.target.files;
-      const reader = new FileReader();
-      reader.readAsDataURL(file)
-      reader.onload = ()=>{
-        setBcPic(reader.result) 
-      }
+  // const handelpbcPicChange = (e) => {
+  //   try {
+  //     const [file] = e.target.files;
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file)
+  //     reader.onload = ()=>{
+  //       setBcPic(reader.result) 
+  //     }
      
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+  //   } catch (error) {
+  //     alert(error.message);
+  //   }
+  // };
   const handelFormSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateProfile(bcPic,profilePic,fullName,bio,website,location))
+    dispatch(updateProfile(bio, username))
+    dispatch(updateProfilePic(profilePic))
     // dispatch update profile func
   };
   return (
@@ -68,7 +66,7 @@ export default function EditProfile() {
             <TextButton
               cBlue
               rounded
-              disabled={!fullName || !website || !bio || !location}
+              disabled={!bio || !username}
               type="submit"
             >
               Save
@@ -77,25 +75,6 @@ export default function EditProfile() {
         </div>
 
         <div className="pic-bc-container">
-          <div className="bc-pic">
-            <input
-              type="file"
-              accept="image/*"
-              alt="profile pic"
-              id="bcpic"
-              name="bcpic"
-              hidden
-              multiple={false}
-              onChange={handelpbcPicChange}
-            ></input>
-            <span
-              className="edit-icon"
-              onClick={() => document.getElementById("bcpic").click()}
-            >
-              <i className="far fa-camera"></i>
-            </span>
-            <img src={bcPic} alt="bc" />
-          </div>
           <div className="profile-pic">
             <input
               type="file"
@@ -118,11 +97,11 @@ export default function EditProfile() {
         </div>
         <div className="user-details-inputs">
           <Input
-            placeholder="Name"
+            placeholder="username"
             className="user-input"
-            onChange={(e) => setFullName(e.target.value)}
-            focused={fullName}
-            value={fullName}
+            onChange={(e) => setUsername(e.target.value)}
+            focused={username}
+            value={username}
             name='fullName'
           />
           <Textarea
@@ -133,22 +112,6 @@ export default function EditProfile() {
             focused={bio}
             value={bio}
             name='bio'
-          />
-          <Input
-            placeholder="Location"
-            className="user-input"
-            onChange={(e) => setLocation(e.target.value)}
-            focused={location}
-            value={location}
-            name='location'
-          />
-          <Input
-            placeholder="Website"
-            className="user-input"
-            onChange={(e) => setWebsite(e.target.value)}
-            focused={website}
-            value={website}
-            name='website'
           />
         </div>
       </form>
