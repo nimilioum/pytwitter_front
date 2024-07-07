@@ -3,17 +3,14 @@ import { motion } from "framer-motion";
 import React from "react";
 import { useState } from "react";
 import { useMutation } from "react-query";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {followUser, unfollowUser} from "../../services/userServices";
-import { SHOW_UNFOLLOW_MODEL } from "../../store/model/modelSlice";
 import { selectCurrentUser } from "../../store/user/userSelector";
 import TextButton from "../Button/TextButton/TextButton";
 import verifiedBadge from "../../static/images/icons8-verified-account-30.png";
-import {unfollowTheUser} from "../../store/user/userActions";
 
 export default function FollowUser({ user, type }) {
-  const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const currentUser = selectCurrentUser(state);
   const [followingText, setFollowingText] = useState("Following");

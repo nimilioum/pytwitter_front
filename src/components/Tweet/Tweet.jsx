@@ -10,7 +10,6 @@ import Linkify from "linkify-react";
 import "linkify-plugin-hashtag";
 import "linkify-plugin-mention";
 import moment from "moment";
-import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { SET_TWEET_TYPE } from "../../store/model/modelSlice";
 import {
@@ -22,8 +21,6 @@ import {
   removeBookmarkTweet,
 } from "../../services/tweetService";
 import TweetOptions from "../Options/TweetOptions";
-import { selectCurrentUser } from "../../store/user/userSelector";
-import { selectGuestUser } from "../../store/guest/guestSelector";
 import tweetReducer, {
   initialState,
   FETCHING_TWEET_SUCCESS,
@@ -69,12 +66,8 @@ export default function Tweet({
   className,
   newlook,
 }) {
-  const state = useSelector((state) => state);
-  const currentUser = selectCurrentUser(state);
-  const guestUser = selectGuestUser(state);
   const tweetClasses = classNames("tweet-link", className);
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
   const [{ tweet, fetching }, dispatch] = useReducer(
     tweetReducer,
     initialState
@@ -111,7 +104,6 @@ export default function Tweet({
   const retweetOptionsClassnames = classNames("retweet-options", {
     show: reweetOptonsVisible,
   });
-
   const savetweetOptionsClassnames = classNames(
     "tweet-options-model",
     "save-options",
@@ -229,23 +221,6 @@ export default function Tweet({
       }
       className={tweetClasses}
     >
-      {tweet.isRetweet && (
-        <div className="tweet-retweeted">
-          <span className="retweet-icon">
-            <RetweetIcon
-              fill={"#536471"}
-              height="15px"
-              width="15px"
-              onClick={handelRetweet}
-            />
-          </span>
-          <span className="retweeted-text">
-            {currentUser.id === guestUser.id
-              ? "You Retweeted"
-              : guestUser.username + " Retweeted"}
-          </span>
-        </div>
-      )}
       <div className="tweet tweet-container">
         <div className="profile-pic-container">
           {/* <img src={tweet.user.avatar} alt="user-pic" className="profile-pic" /> */}
@@ -474,19 +449,7 @@ export default function Tweet({
           )}
         </div>
       </div>
-      {newlook && (
-        <div className="tweet-info">
-          <Link to="retweets" className="tweet-info-link">
-            <b>{tweet.retweetCount}</b> Retweets
-          </Link>
-          {/* <Link to="quote-tweets" className="tweet-info-link">
-            <b>{tweet.retweetCount}</b> Quote Retweets
-          </Link> */}
-          <Link to="likes" className="tweet-info-link">
-            <b>{tweet.likesCount}</b> Likes
-          </Link>
-        </div>
-      )}
+      
       {newlook && (
         <div className="tweet-actions tweet-actions-new-look">
           <div className="wrap-tweet-actions-child">
@@ -509,7 +472,7 @@ export default function Tweet({
                 <TextButton className="tweet-icon-wrap" onClick={handelRetweet}>
                   <RetweetIcon
                     fill={
-                      tweet.isRetweeted ? "rgba(29, 155, 240, 0.8)" : "#536471"
+                      tweet.is_retweeted ? "rgba(29, 155, 240, 0.8)" : "#536471"
                     }
                     height="25px"
                     width="25px"

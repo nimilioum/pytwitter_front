@@ -39,6 +39,7 @@ export default function TweetOptions({ istweetOptions, tweet, dispatch }) {
       cogoToast.error(error.message);
     }
   };
+  console.log(tweet)
   const handelFollow = async (e) => {
     e.stopPropagation();
     try {
@@ -60,17 +61,7 @@ export default function TweetOptions({ istweetOptions, tweet, dispatch }) {
           exit={{ y: 50, opacity: 0 }}
         >
           <li className="tweet-options-model-item">
-            {tweet.user._id !== currentUser._id && (
-              <>
-                <span className="tweet-options-model-icon">
-                  <i className="far fa-frown"></i>
-                </span>
-                <TextButton className="tweet-options-model-btn">
-                  Not insterested in this tweet
-                </TextButton>
-              </>
-            )}
-            {tweet.user._id === currentUser._id && (
+            {tweet.user.username === currentUser.username && (
               <>
                 <span className="tweet-options-model-icon danger-icon">
                   <i className="far fa-trash-can"></i>
@@ -85,12 +76,12 @@ export default function TweetOptions({ istweetOptions, tweet, dispatch }) {
             )}
           </li>
           <li className="tweet-options-model-item">
-            {tweet.user._id !== currentUser._id && (
+            {tweet.user.username !== currentUser.username && (
               <>
                 <span className="tweet-options-model-icon">
                   <i className="far fa-user-plus"></i>
                 </span>
-                {!tweet.isFollowing && (
+                {!tweet.user.is_followed && (
                   <TextButton
                     className="tweet-options-model-btn"
                     onClick={handelFollow}
@@ -98,7 +89,7 @@ export default function TweetOptions({ istweetOptions, tweet, dispatch }) {
                     Follow @{tweet.user.username}
                   </TextButton>
                 )}
-                {tweet.isFollowing && (
+                {tweet.user.is_followed && (
                   <TextButton
                     className="tweet-options-model-btn"
                     onClick={handelUnfollow}
@@ -106,38 +97,6 @@ export default function TweetOptions({ istweetOptions, tweet, dispatch }) {
                     Unfollow @{tweet.user.username}
                   </TextButton>
                 )}
-              </>
-            )}
-            {tweet.user._id === currentUser._id && (
-              <>
-                <span className="tweet-options-model-icon">
-                  <i className="far fa-user-plus"></i>
-                </span>
-                <TextButton className="tweet-options-model-btn" disabled>
-                  Change who can reply
-                </TextButton>
-              </>
-            )}
-          </li>
-          <li className="tweet-options-model-item">
-            {tweet.user._id !== currentUser._id && (
-              <>
-                <span className="tweet-options-model-icon">
-                  <i className="fa-regular fa-ban"></i>
-                </span>
-                <TextButton className="tweet-options-model-btn" disabled>
-                  Block @{tweet.user.username}
-                </TextButton>
-              </>
-            )}
-            {tweet.user._id === currentUser._id && (
-              <>
-                <span className="tweet-options-model-icon">
-                  <i className="fas fa-thumbtack"></i>
-                </span>
-                <TextButton className="tweet-options-model-btn">
-                  Pin to your profile
-                </TextButton>
               </>
             )}
           </li>

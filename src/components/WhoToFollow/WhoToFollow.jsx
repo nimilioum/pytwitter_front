@@ -1,7 +1,6 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { fetchSuggstedUsers } from "../../services/userServices";
-import FollowUser from "../FollowUser/FollowUser";
 import SimpleSpinner from "../Loader/SimpleSpinner";
 
 export default function WhoToFollow({headerText}) {
