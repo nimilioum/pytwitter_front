@@ -1,9 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function RootModelHeader({ hideHeader,navigateTo='/home' }) {
+export default function RootModelHeader({ hideHeader, navigateTo='/' }) {
   const navigate = useNavigate();
   const handelModelClose = () => {
+    console.log("is from here")
     navigate(navigateTo);
   };
   return (

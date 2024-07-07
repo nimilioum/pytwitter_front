@@ -13,8 +13,6 @@ import {
 } from "../../services/userServices";
 
 import {
-    verifyEmail,
-    verifyName,
     verifyPassword,
     verifyUsername,
 } from "../../utils/validations";
@@ -80,7 +78,7 @@ export const githubSignInStart = (code) => async (dispatch) => {
     }
 }
 
-export const signupUser = (username, password, confPassword) => async (dispatch) => {
+export const signupUser = (username, password, confPassword, navigate) => async (dispatch) => {
     try {
         dispatch(SIGN_UP_START())
         verifyUsername(username)
@@ -88,12 +86,15 @@ export const signupUser = (username, password, confPassword) => async (dispatch)
         const user = await signupWithUsername(username, password);
         // signup success dispatch
         dispatch(SIGN_UP_SUCCESS(user))
+        dispatch(SIGN_UP_FAIL())
+        cogoToast.success('Sing Up Is Success 👍')
+        navigate('/flow/login')
     } catch (error) {
         // signup fail dispatch
-        console.log(error)
         dispatch(SIGN_UP_FAIL(error.message))
     }
 }
+
 export const loginUser = (username, password) => async (dispatch) => {
     try {
         dispatch(SIGN_IN_START())
@@ -102,6 +103,7 @@ export const loginUser = (username, password) => async (dispatch) => {
         localStorage.setItem('username', username)
         localStorage.setItem('refresh', user.refresh)
         dispatch(SIGN_IN_SUCCESS(user))
+        dispatch(SIGN_IN_FAIL())
     } catch (error) {
         dispatch(SIGN_IN_FAIL(error.message))
     }

@@ -1,9 +1,4 @@
 import React from "react";
-import {
-  googleAuthenticationUrl,
-  githubAuthenticationUrl,
-} from "../../services/authenticationServices";
-import LinkButton from "../Button/LinkButton/LinkButton";
 import TextButton from "../Button/TextButton/TextButton";
 import Input from "../Input/Input";
 import InputForm from "../InputForm/InputForm";
@@ -36,7 +31,7 @@ export default function Login() {
   };
   return (
     <div className="login-comp">
-      <div className="user-form ">
+      <div className="user-form">
         <InputForm className="login-form" onSubmit={handelFormSubmit}>
           <InputFormHeading
             heading="Sign in to Twitter"
@@ -69,9 +64,6 @@ export default function Login() {
             className="flow-login-btn"
           >
             Login
-          </TextButton>
-          <TextButton type="button" rounded>
-            Forget password
           </TextButton>
           <div className="signup-option">
             <p className="signup-option-text">Don't have an account?</p>

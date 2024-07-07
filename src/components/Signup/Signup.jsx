@@ -22,10 +22,7 @@ export default function Signup() {
 
   const handelSignupFormSubmit = (e) => {
     e.preventDefault();
-    dispatch(signupUser(username,password,confPassword))
-    navigate("/flow/login")
-    // signup handel
-    // handel error
+    dispatch(signupUser(username, password, confPassword, navigate))
   };
 
   return (

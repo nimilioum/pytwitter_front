@@ -65,7 +65,7 @@ export const signupWithUsername = async (username, password) => {
         console.log(response, "CMKFMFWN")
         return response.data;
     } catch (error) {
-        if (error.response.status == 400) {
+        if (error.response.status === 400) {
             throw new Error("username already exists")
         }
     }
@@ -92,13 +92,12 @@ export const getCurrentUser = async (username) => {
 export const loginWithUsername = async (username, password) => {
     try {
         const response = await axios.post('/api/auth/token/', {
-
             username,
             password
         });
         return response.data;
     } catch (error) {
-        throw new Error(error.response.data.error)
+        throw new Error(error.response.data.detail)
     }
 
 }
