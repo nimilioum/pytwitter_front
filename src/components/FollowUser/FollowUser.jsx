@@ -5,11 +5,12 @@ import { useState } from "react";
 import { useMutation } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { followUser } from "../../services/userServices";
+import {followUser, unfollowUser} from "../../services/userServices";
 import { SHOW_UNFOLLOW_MODEL } from "../../store/model/modelSlice";
 import { selectCurrentUser } from "../../store/user/userSelector";
 import TextButton from "../Button/TextButton/TextButton";
 import verifiedBadge from "../../static/images/icons8-verified-account-30.png";
+import {unfollowTheUser} from "../../store/user/userActions";
 
 export default function FollowUser({ user, type }) {
   const dispatch = useDispatch();
@@ -18,10 +19,20 @@ export default function FollowUser({ user, type }) {
   const [followingText, setFollowingText] = useState("Following");
   const [following, setIsFollowing] = useState(user.is_followed);
 
-  const mutation = useMutation(followUser, {
+  const followMutation = useMutation(followUser, {
     onSuccess: () => {
       // Invalidate and refetch
       setIsFollowing(true);
+    },
+    onError: (error) => {
+      cogoToast.error(error.message);
+    },
+  });
+
+  const unfollowMutation = useMutation(unfollowUser, {
+    onSuccess: () => {
+      // Invalidate and refetch
+      setIsFollowing(false);
     },
     onError: (error) => {
       cogoToast.error(error.message);
@@ -60,9 +71,9 @@ export default function FollowUser({ user, type }) {
         {!following ? (
           user.username !== currentUser.username && (
             <TextButton
-              disabled={mutation.isLoading}
+              disabled={followMutation.isLoading}
               className="follow-btn"
-              onClick={() => mutation.mutate(user.username)}
+              onClick={() => followMutation.mutate(user.username)}
             >
               Follow
             </TextButton>
@@ -73,14 +84,7 @@ export default function FollowUser({ user, type }) {
             cBlue
             onMouseEnter={() => setFollowingText("Unfollow")}
             onMouseLeave={() => setFollowingText("Following")}
-            onClick={() =>
-              dispatch(
-                SHOW_UNFOLLOW_MODEL({
-                  user: { username: user.username },
-                  type,
-                })
-              )
-            }
+            onClick={() => unfollowMutation.mutate(user.username)}
           >
             {followingText}
           </TextButton>

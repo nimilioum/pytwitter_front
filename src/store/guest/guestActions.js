@@ -33,20 +33,20 @@ export const fetchUser = (username) => async (dispatch) => {
     }
 }
 
-export const getFollowers = (userid) => async (dispatch) => {
+export const getFollowers = (username) => async (dispatch) => {
     try {
         dispatch(FETCHING_FOLLOWERS_START())
-        const followers = await getUserFollowers(userid);
+        const followers = await getUserFollowers(username);
         dispatch(FETCHING_FOLLOWERS_SUCCESS(followers))
     } catch (error) {
         cogoToast.error(error.message)
         dispatch(FETCHING_FOLLOWERS_FAIL(error.message))
     }
 }
-export const getFollowings = (userid) => async (dispatch) => {
+export const getFollowings = (username) => async (dispatch) => {
     try {
         dispatch(FETCHING_FOLLOWINGS_START())
-        const followings = await getUserFollowings(userid);
+        const followings = await getUserFollowings(username);
         dispatch(FETCHING_FOLLOWINGS_SUCCESS(followings))
     } catch (error) {
         cogoToast.error(error.message)

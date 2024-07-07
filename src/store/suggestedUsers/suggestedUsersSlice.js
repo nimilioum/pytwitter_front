@@ -27,10 +27,10 @@ export const suggestedUsersSlice = createSlice({
             state.fetching = true;
         },
         FOLLOWED_FROM_SUGGETIONS:(state,action)=>{
-            state.users.find(user => user._id === action.payload).isFollowing = true
+            state.users.find(user => user.username === action.payload).isFollowing = true
         },
         UNFOLLOWED_FROM_SUGGETIONS:(state,action)=>{
-            state.users.find(user => user._id === action.payload).isFollowing = false
+            state.users.find(user => user.username === action.payload).isFollowing = false
         }
 
     },

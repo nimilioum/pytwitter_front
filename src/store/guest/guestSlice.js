@@ -8,8 +8,6 @@ const initialState = {
     fetchingError:null,
     followers:{users:[],count:0},
     followings:{users:[],count:0},
-    hasMoreFollowers:true,
-    hasMoreFollowings:true,
     fetchingFollowers:true,
     fetchingFollowings:true,
     fetchingFollowingsError:null,
@@ -44,19 +42,13 @@ export const guestSlice = createSlice({
             state.fetchingFollowings = true;
         },
         FETCHING_FOLLOWERS_SUCCESS:(state,action)=>{
-            if(action.payload.users.length < 20){
-                state.hasMoreFollowers = false;
-            }
-            state.followers.users = state.followers.users.concat(action.payload.users);
-            state.followers.count = action.payload.count
+            state.followers.users = state.followers.users.concat(action.payload);
+            state.followers.count = action.payload.length
             state.fetchingFollowers = false;
         },
         FETCHING_FOLLOWINGS_SUCCESS:(state,action)=>{
-            if(action.payload.users.length < 20){
-                state.hasMoreFollowings = false;
-            }
-            state.followings.users = state.followings.users.concat(action.payload.users);
-            state.followings.count = action.payload.count
+            state.followings.users = state.followings.users.concat(action.payload);
+            state.followings.count = action.payload.length
             state.fetchingFollowings = false;
         },
         FETCHING_FOLLOWERS_FAIL:(state,action)=>{
@@ -68,20 +60,20 @@ export const guestSlice = createSlice({
             state.fetchingFollowings = false;
         },
         UNFOLLOWED_FROM_FOLLOWERS:(state,action)=>{
-            const userid = action.payload
-            state.followers.users.find(user => user._id === userid).isFollowing = false;
+            const username = action.payload
+            state.followers.users.find(user => user.username === username).isFollowing = false;
         },
         FOLLOWED_FROM_FOLLOWERS:(state,action)=>{
-            const userid = action.payload
-            state.followers.users.find(user => user._id === userid).isFollowing = true;
+            const username = action.payload
+            state.followers.users.find(user => user.username === username).isFollowing = true;
         },
         UNFOLLOWED_FROM_FOLLOWINGS:(state,action)=>{
-            const userid = action.payload
-            state.followings.users.find(user => user._id === userid).isFollowing = false;
+            const username = action.payload
+            state.followings.users.find(user => user.username === username).isFollowing = false;
         },
         FOLLOWED_FROM_FOLLOWINGS:(state,action)=>{
-            const userid = action.payload
-            state.followings.users.find(user => user._id === userid).isFollowing = true;
+            const username = action.payload
+            state.followings.users.find(user => user.username === username).isFollowing = true;
         },
         UNFOLLOWED_FROM_PROFILE:(state)=>{
             state.guestUser.isFollowing = false;

@@ -19,9 +19,9 @@ export default function FollowPage() {
   },[dispatch])
 
   useEffect(() => {
-    dispatch(getFollowers(guestUser._id));
-    dispatch(getFollowings(guestUser._id))
-  }, [dispatch, guestUser._id]);
+    dispatch(getFollowers(guestUser.username));
+    dispatch(getFollowings(guestUser.username))
+  }, [dispatch, guestUser.username]);
   return (
     <>
       <div className="followpage two-flex-col-container">

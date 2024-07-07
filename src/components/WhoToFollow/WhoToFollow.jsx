@@ -13,8 +13,8 @@ export default function WhoToFollow({headerText}) {
           <div className="who-to-follow-heading-container">
             <h2>{headerText || 'Who to follow'}</h2>
           </div>
-          {users &&
-            users.map((user) => <FollowUser user={user} key={user._id} type='suggUsers'/>)}
+          {/*{users &&*/}
+          {/*  users.map((user) => <FollowUser user={user} key={user.id} type='suggUsers'/>)}*/}
           {!users && <h5>No users suggestions</h5>}
           {error && <h3 className="error-text">{error.message}</h3>}
         </>

@@ -6,7 +6,7 @@ const initialState = {
     fetching:true,
     tweet:null,
     fetchingTweetError:null,
-
+    deleted: false,
 }
 
 
@@ -74,6 +74,12 @@ export const tweetSlice = createSlice({
         TWEET_REMOVEBOOKMARK_SUCCESS:(state)=>{
             state.tweet.is_bookmarked = false;
         },
+        TWEET_DELETED_SUCCESS:(state)=>{
+            state.deleted = true
+        },
+        TWEET_DELETED_FAILED:(state)=>{
+            state.deleted = false
+        },
 
     },
 })
@@ -96,7 +102,9 @@ export const {
     TWEET_BOOKMARK_FAILED,
     TWEET_BOOKMARK_SUCCESS,
     TWEET_REMOVEBOOKMARK_FAILED,
-    TWEET_REMOVEBOOKMARK_SUCCESS
+    TWEET_REMOVEBOOKMARK_SUCCESS,
+    TWEET_DELETED_FAILED,
+    TWEET_DELETED_SUCCESS,
 } = tweetSlice.actions;
 export {initialState};
 export default tweetSlice.reducer;
