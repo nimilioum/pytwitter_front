@@ -22,14 +22,13 @@ import {
 } from "./../../store/guest/guestSelector";
 import SimpleSpinner from "../Loader/SimpleSpinner";
 import {followTheUser, unfollowTheUser} from "../../store/user/userActions";
-import { SHOW_UNFOLLOW_MODEL } from "../../store/model/modelSlice";
 import Linkify from "linkify-react";
 import "linkify-plugin-hashtag";
 import "linkify-plugin-mention";
 import NotFound from "../NotFound/NotFound";
 import { CLEAR_GUEST_USER } from "../../store/guest/guestSlice";
 import { motion } from "framer-motion";
-import verifiedBadge from "../../static/images/icons8-verified-account-30.png";
+
 const options = {
   className: () => "default-link",
   formatHref: {
@@ -47,16 +46,6 @@ const options = {
   },
 };
 
-const external_link_options = {
-  className: () => "default-link",
-  format: {
-    url: (value) => (value.length > 20 ? value.slice(0, 20) + "…" : value),
-  },
-  target: {
-    url: "__blank",
-    email: null,
-  },
-};
 export default function User() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
