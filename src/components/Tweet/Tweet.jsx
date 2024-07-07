@@ -393,7 +393,7 @@ export default function Tweet({
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ y: 50, opacity: 0 }}
                       >
-                        {!tweet.isBookmarked ? (
+                        {!tweet.is_bookmarked ? (
                           <li className="tweet-options-model-item">
                             <span className="tweet-options-model-icon">
                               <i className="far fa-bookmark"></i>
@@ -526,7 +526,7 @@ export default function Tweet({
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ y: 50, opacity: 0 }}
                     >
-                      {!tweet.isBookmarked ? (
+                      {!tweet.is_bookmarked ? (
                         <li className="tweet-options-model-item">
                           <span className="tweet-options-model-icon">
                             <i className="far fa-bookmark"></i>

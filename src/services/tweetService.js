@@ -123,7 +123,7 @@ export const  bookmarkTweet = async(tweetid)=>{
 
 export const  removeBookmarkTweet = async(tweetid)=>{
     try {
-        const response = await axios.post(`/api/posts/${tweetid}/save` , null);
+        const response = await axios.post(`/api/posts/${tweetid}/save/` , null);
         return response.data;
     } catch (error) {
         throw new Error(error.response.data.error);
