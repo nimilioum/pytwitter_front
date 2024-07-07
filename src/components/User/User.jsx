@@ -21,7 +21,7 @@ import {
   selectGuestFetching,
 } from "./../../store/guest/guestSelector";
 import SimpleSpinner from "../Loader/SimpleSpinner";
-import { followTheUser } from "../../store/user/userActions";
+import {followTheUser, unfollowTheUser} from "../../store/user/userActions";
 import { SHOW_UNFOLLOW_MODEL } from "../../store/model/modelSlice";
 import Linkify from "linkify-react";
 import "linkify-plugin-hashtag";
@@ -69,6 +69,7 @@ export default function User() {
   const { username } = useParams();
   const [backgroundImageLoaded, SetBackgroundImageLoaded] = useState(false);
   const [profileImageLoaded, SetProfileImageLoaded] = useState(false);
+  const [following, setIsFollowing] = useState(currentUser.username !== guestUser.username && guestUser.is_followed);
   const [followingText, setFollowingText] = useState("Following");
   const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
@@ -124,12 +125,12 @@ export default function User() {
                   >
                     Edit profile
                   </TextButton>
-                ) : !guestUser.isFollowing ? (
+                ) : !following ? (
                   <TextButton
                     rounded
                     className="edit-profile-btn"
                     onClick={() =>
-                      dispatch(followTheUser(guestUser._id, "profile"))
+                      dispatch(followTheUser(guestUser.username, "profile")).then(() => {setIsFollowing(!following)})
                     }
                   >
                     Follow
@@ -142,14 +143,10 @@ export default function User() {
                     className="edit-profile-btn following-btn"
                     onClick={() =>
                       dispatch(
-                        SHOW_UNFOLLOW_MODEL({
-                          user: {
-                            username: guestUser.username,
-                            _id: guestUser._id,
-                          },
-                          type: "profile",
-                        })
-                      )
+                        unfollowTheUser(guestUser.username, "profile")
+                      ).then(() => {
+                        setIsFollowing(!following)
+                      })
                     }
                   >
                     {followingText}

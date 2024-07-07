@@ -156,37 +156,37 @@ export const updateProfilePic = (profilePic) => async (dispatch) => {
 }
 
 
-export const followTheUser = (userid, type) => async (dispatch) => {
+export const followTheUser = (username, type) => async (dispatch) => {
     try {
-        if (String(type) === 'followers') dispatch(FOLLOWED_FROM_FOLLOWERS(userid))
-        if (String(type) === 'followings') dispatch(FOLLOWED_FROM_FOLLOWINGS(userid))
+        if (String(type) === 'followers') dispatch(FOLLOWED_FROM_FOLLOWERS(username))
+        if (String(type) === 'followings') dispatch(FOLLOWED_FROM_FOLLOWINGS(username))
         if (String(type) === 'profile') dispatch(FOLLOWED_FROM_PROFILE())
-        if (String(type) === 'suggUsers') dispatch(FOLLOWED_FROM_SUGGETIONS(userid))
-        await followUser(userid);
+        if (String(type) === 'suggUsers') dispatch(FOLLOWED_FROM_SUGGETIONS(username))
+        await followUser(username);
         
     } catch (error) {
-        if (String(type) === 'followers') dispatch(UNFOLLOWED_FROM_FOLLOWERS(userid))
-        if (String(type) === 'followings') dispatch(UNFOLLOWED_FROM_FOLLOWINGS(userid))
+        if (String(type) === 'followers') dispatch(UNFOLLOWED_FROM_FOLLOWERS(username))
+        if (String(type) === 'followings') dispatch(UNFOLLOWED_FROM_FOLLOWINGS(username))
         if (String(type) === 'profile') dispatch(UNFOLLOWED_FROM_PROFILE())
-        if (String(type) === 'suggUsers') dispatch(UNFOLLOWED_FROM_SUGGETIONS(userid))
+        if (String(type) === 'suggUsers') dispatch(UNFOLLOWED_FROM_SUGGETIONS(username))
         dispatch(ERROR_WHILE_FOLLOWING(error.message))
         cogoToast.error(error.message)
     }
 }
-export const unfollowTheUser = (userid, type) => async (dispatch) => {
+export const unfollowTheUser = (username, type) => async (dispatch) => {
     try {
-        if (String(type) === 'followers') dispatch(UNFOLLOWED_FROM_FOLLOWERS(userid))
-        if (String(type) === 'followings') dispatch(UNFOLLOWED_FROM_FOLLOWINGS(userid))
+        if (String(type) === 'followers') dispatch(UNFOLLOWED_FROM_FOLLOWERS(username))
+        if (String(type) === 'followings') dispatch(UNFOLLOWED_FROM_FOLLOWINGS(username))
         if (String(type) === 'profile') dispatch(UNFOLLOWED_FROM_PROFILE())
-        if (String(type) === 'suggUsers') dispatch(UNFOLLOWED_FROM_SUGGETIONS(userid))
+        if (String(type) === 'suggUsers') dispatch(UNFOLLOWED_FROM_SUGGETIONS(username))
         dispatch(HIDE_UNFOLLOW_MODEL())
-        await unfollowUser(userid);
+        await unfollowUser(username);
         
     } catch (error) {
-        if (String(type) === 'followers') dispatch(FOLLOWED_FROM_FOLLOWERS(userid))
-        if (String(type) === 'followings') dispatch(FOLLOWED_FROM_FOLLOWINGS(userid))
+        if (String(type) === 'followers') dispatch(FOLLOWED_FROM_FOLLOWERS(username))
+        if (String(type) === 'followings') dispatch(FOLLOWED_FROM_FOLLOWINGS(username))
         if (String(type) === 'profile') dispatch(FOLLOWED_FROM_PROFILE())
-        if (String(type) === 'suggUsers') dispatch(FOLLOWED_FROM_SUGGETIONS(userid))
+        if (String(type) === 'suggUsers') dispatch(FOLLOWED_FROM_SUGGETIONS(username))
         dispatch(ERROR_WHILE_UNFOLLOWING(error.message))
         dispatch(HIDE_UNFOLLOW_MODEL())
         cogoToast.error(error.message)
@@ -204,7 +204,7 @@ export const postTweet = (caption, pic=null, tweet) => async (dispatch) => {
             dispatch(POSTING_TWEET_FINISED())
         }
         else{
-             await postTheTweet(caption, pic,tweet._id);
+             await postTheTweet(caption, pic,tweet.id);
             dispatch(POSTING_TWEET_FINISED())
         }
         

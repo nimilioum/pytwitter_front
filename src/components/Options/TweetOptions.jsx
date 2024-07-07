@@ -4,6 +4,7 @@ import TextButton from "./../Button/TextButton/TextButton";
 import { selectCurrentUser } from "../../store/user/userSelector";
 import { useSelector } from "react-redux";
 import {
+  TWEET_DELETED_SUCCESS,
   TWEET_USER_FOLLOW_FAILED,
   TWEET_USER_FOLLOW_SUCCESS,
   TWEET_USER_UNFOLLOW_FAILED,
@@ -12,6 +13,8 @@ import {
 import { unfollowUser, followUser } from "../../services/userServices";
 import cogoToast from "cogo-toast";
 import { motion, AnimatePresence } from "framer-motion";
+import {deleteTheTweet} from "../../services/tweetService";
+import {useNavigate} from "react-router-dom";
 
 export default function TweetOptions({ istweetOptions, tweet, dispatch }) {
   const tweetOptionsClassnames = classNames("tweet-options-model", {
@@ -19,15 +22,18 @@ export default function TweetOptions({ istweetOptions, tweet, dispatch }) {
   });
   const state = useSelector((state) => state);
   let currentUser = selectCurrentUser(state);
+  const navigate = useNavigate();
 
   const handelTweetDelete = async () => {
-    // dispatch(deleteTweet(tweet._id))
+    await deleteTheTweet(tweet.id)
+    dispatch(TWEET_DELETED_SUCCESS)
+    navigate("/home")
   };
   const handelUnfollow = async (e) => {
     e.stopPropagation();
     try {
       dispatch(TWEET_USER_UNFOLLOW_SUCCESS());
-      await unfollowUser(tweet.user._id);
+      await unfollowUser(tweet.user.id);
     } catch (error) {
       dispatch(TWEET_USER_UNFOLLOW_FAILED());
       cogoToast.error(error.message);
@@ -37,7 +43,7 @@ export default function TweetOptions({ istweetOptions, tweet, dispatch }) {
     e.stopPropagation();
     try {
       dispatch(TWEET_USER_FOLLOW_SUCCESS());
-      await followUser(tweet.user._id);
+      await followUser(tweet.user.username);
     } catch (error) {
       dispatch(TWEET_USER_FOLLOW_FAILED());
       cogoToast.error(error.message);

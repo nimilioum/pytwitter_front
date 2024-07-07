@@ -11,6 +11,17 @@ export const postTheTweet = async (caption, pic) => {
     }
 }
 
+export const deleteTheTweet = async (tweetid) => {
+    try {
+        const response = await axios.delete(`/api/posts/${tweetid}/`, {
+
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response.data.error);
+    }
+}
+
 export const likeTheTweet = async (tweetid) => {
     try {
         const response = await axios.post(`/api/posts/${tweetid}/like/`, null, {
@@ -57,7 +68,7 @@ export const  postTheTweetReply = async(tweetText, tweetPic,tweetid)=>{
 
 export const  postTheRetweet = async(tweetid)=>{
     try {
-        const response = await axios.post(`/api/posts/${tweetid}/retweet`, null, {
+        const response = await axios.post(`/api/posts/${tweetid}/retweet/`, null, {
 
         });
         return response.data;

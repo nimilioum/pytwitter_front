@@ -125,12 +125,12 @@ export default function Tweet({
     // OR
     e.preventDefault();
     if (!tweet.is_liked) {
-      dispatch(TWEET_LIKED_SUCCESS());
       await likeTheTweet(tweet.id);
+      dispatch(TWEET_LIKED_SUCCESS());
       console.log(tweet.is_liked)
     } else {
-      dispatch(TWEET_LIKED_FAILED());
       await unlikeTheTweet(tweet.id);
+      dispatch(TWEET_LIKED_FAILED());
     }
   };
   const handelTweetReply = (e) => {

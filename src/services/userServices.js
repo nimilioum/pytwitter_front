@@ -48,6 +48,7 @@ export const fetchUserProfile = async (username) => {
 
 export const followUser = async (username) => {
   try {
+    console.log(username)
     const response = await axios.post(`/api/user/${username}/follow/`, null, );
     return response.data;
   } catch (error) {
@@ -65,13 +66,10 @@ export const unfollowUser = async (username) => {
   }
 };
 
-export const getUserFollowers = async (username, offset = 0) => {
+export const getUserFollowers = async (username) => {
   try {
     const response = await axios.get(
       `/api/user/${username}/followers/`,
-      {
-
-      }
     );
     return response.data;
   } catch (error) {
@@ -79,11 +77,10 @@ export const getUserFollowers = async (username, offset = 0) => {
   }
 };
 
-export const getUserFollowings = async (username, offset = 0) => {
+export const getUserFollowings = async (username) => {
   try {
     const response = await axios.get(
       `/api/user/${username}/followings/`,
-      { offset },
     );
     return response.data;
   } catch (error) {

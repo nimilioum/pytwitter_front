@@ -28,7 +28,7 @@ export default function Followers() {
     if (fetchingMoreTweets.current || fetching  || !hasMore) return
       try {
         fetchingMoreTweets.current = (true);
-        const result = await getUserFollowers(guestUser._id,followers.users.length);
+        const result = await getUserFollowers(guestUser.username);
         dispatch(FETCHING_FOLLOWERS_SUCCESS(result))
         fetchingMoreTweets.current = (false);
       } catch (error) {
@@ -40,9 +40,9 @@ export default function Followers() {
 
   return !fetching ? (
     <div className="user-followers">
-      {followers.count === 0 && <div className="no-followers">No one follows me  &#128532;</div>}
-      {followers.users.map((follower) => (
-        <FollowUser user={follower} type='followers' key={follower._id} />
+      {!followers.count && <div className="no-followers">No one follows me  &#128532;</div>}
+      {followers.count > 0 &&followers.users.map((follower) => (
+        <FollowUser user={follower} type='followers' key={follower.username} />
       ))}
     </div>
   ) : (
