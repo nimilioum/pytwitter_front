@@ -34,6 +34,7 @@ export default function TweetOptions({ istweetOptions, tweet, dispatch }) {
     try {
       dispatch(TWEET_USER_UNFOLLOW_SUCCESS());
       await unfollowUser(tweet.user.username);
+      navigate(`/${tweet.user.username}`)
     } catch (error) {
       dispatch(TWEET_USER_UNFOLLOW_FAILED());
       cogoToast.error(error.message);
@@ -45,6 +46,7 @@ export default function TweetOptions({ istweetOptions, tweet, dispatch }) {
     try {
       dispatch(TWEET_USER_FOLLOW_SUCCESS());
       await followUser(tweet.user.username);
+      navigate(`/${tweet.user.username}`)
     } catch (error) {
       dispatch(TWEET_USER_FOLLOW_FAILED());
       cogoToast.error(error.message);
@@ -81,7 +83,7 @@ export default function TweetOptions({ istweetOptions, tweet, dispatch }) {
                 {/* <span className="tweet-options-model-icon">
                   <i className="far fa-user-plus"></i>
                 </span> */}
-                {tweet.user.is_followed && (
+                {!tweet.user.is_followed && (
                   <TextButton
                     className="tweet-options-model-btn"
                     onClick={handelFollow}
@@ -89,7 +91,7 @@ export default function TweetOptions({ istweetOptions, tweet, dispatch }) {
                     Follow @{tweet.user.username}
                   </TextButton>
                 )}
-                {!tweet.user.is_followed && (
+                {tweet.user.is_followed && (
                   <TextButton
                     className="tweet-options-model-btn"
                     onClick={handelUnfollow}
@@ -99,14 +101,6 @@ export default function TweetOptions({ istweetOptions, tweet, dispatch }) {
                 )}
               </>
             )}
-          </li>
-          <li className="tweet-options-model-item">
-            <span className="tweet-options-model-icon icon-4">
-              <i className="far fa-flag"></i>
-            </span>
-            <TextButton className="tweet-options-model-btn" disabled>
-              Report Tweet
-            </TextButton>
           </li>
         </motion.ul>
       )}

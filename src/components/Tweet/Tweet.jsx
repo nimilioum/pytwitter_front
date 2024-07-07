@@ -157,17 +157,17 @@ export default function Tweet({
 
     // dispatch(postRetweet(tweet))
   };
-  const handelLinkCopy = (e) => {
-    e.stopPropagation();
-    const link =
-      window.location.origin +
-      "/" +
-      tweet.user.username +
-      "/status/" +
-      tweet._id;
-    navigator.clipboard.writeText(link);
-    cogoToast.success("copied successfully!");
-  };
+  // const handelLinkCopy = (e) => {
+  //   e.stopPropagation();
+  //   const link =
+  //     window.location.origin +
+  //     "/" +
+  //     tweet.user.username +
+  //     "/status/" +
+  //     tweet.id;
+  //   navigator.clipboard.writeText(link);
+  //   cogoToast.success("copied successfully!");
+  // };
 
   const handelTweetBookmark = async (e) => {
     e.stopPropagation();
@@ -191,27 +191,27 @@ export default function Tweet({
       dispatch(TWEET_REMOVEBOOKMARK_FAILED());
     }
   };
-  const handelShareTweet = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  // const handelShareTweet = async (e) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
 
-    if (!navigator.canShare) {
-      return cogoToast.error("Sharing not supported!");
-    }
+  //   if (!navigator.canShare) {
+  //     return cogoToast.error("Sharing not supported!");
+  //   }
 
-    const blob = await fetch(tweet.pic).then((r) => r.blob());
-    const data = {
-      title: "Tweet",
-      files: [
-        new File([blob], "file.png", {
-          type: blob.type,
-        }),
-      ],
-      text: tweet.caption,
-      url: `https://zwitter.netlify.app/${tweet.user.username}/status/${tweet._id}`,
-    };
-    navigator.share(data);
-  };
+  //   const blob = await fetch(tweet.pic).then((r) => r.blob());
+  //   const data = {
+  //     title: "Tweet",
+  //     files: [
+  //       new File([blob], "file.png", {
+  //         type: blob.type,
+  //       }),
+  //     ],
+  //     text: tweet.caption,
+  //     url: `https://zwitter.netlify.app/${tweet.user.username}/status/${tweet._id}`,
+  //   };
+  //   navigator.share(data);
+  // };
   return !fetching ? (
     <motion.div
       initial={{ opacity: 0 }}
@@ -418,28 +418,6 @@ export default function Tweet({
                             </TextButton>
                           </li>
                         )}
-                        <li className="tweet-options-model-item">
-                          <span className="tweet-options-model-icon">
-                            <i className="far fa-link"></i>
-                          </span>
-                          <TextButton
-                            className="tweet-options-model-btn"
-                            onClick={handelLinkCopy}
-                          >
-                            Copy link to tweet
-                          </TextButton>
-                        </li>
-                        <li className="tweet-options-model-item">
-                          <span className="tweet-options-model-icon">
-                            <i className="far fa-share"></i>
-                          </span>
-                          <TextButton
-                            className="tweet-options-model-btn"
-                            onClick={handelShareTweet}
-                          >
-                            Share tweet via
-                          </TextButton>
-                        </li>
                       </motion.ul>
                     )}
                   </AnimatePresence>
@@ -551,25 +529,6 @@ export default function Tweet({
                           </TextButton>
                         </li>
                       )}
-                      <li className="tweet-options-model-item">
-                        <span className="tweet-options-model-icon">
-                          <i className="far fa-link"></i>
-                        </span>
-                        <TextButton className="tweet-options-model-btn">
-                          Copy link to tweet
-                        </TextButton>
-                      </li>
-                      <li className="tweet-options-model-item">
-                        <span className="tweet-options-model-icon">
-                          <i className="far fa-share"></i>
-                        </span>
-                        <TextButton
-                          className="tweet-options-model-btn"
-                          onClick={handelShareTweet}
-                        >
-                          Sharet tweet via
-                        </TextButton>
-                      </li>
                     </motion.ul>
                   )}
                 </AnimatePresence>
