@@ -70,12 +70,15 @@ export default function User() {
       // dispatch retrive user action
       // handel success fail
     };
-    retriveUser(username).then(() => {
-        setIsFollowing(guestUser.is_followed)
-      });
+    retriveUser(username)
     // setIsFollowing(guestUser.is_followed)
     return () => dispatch(CLEAR_GUEST_USER());
-  }, [username, dispatch, guestUser.is_followed]);
+  }, [username, dispatch]);
+  useEffect(() => {
+    if (guestUser) {
+      setIsFollowing(guestUser.is_followed)
+    }
+  }, [guestUser]);
 
   return (
     <div className="two-flex-col-container userpage">
