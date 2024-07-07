@@ -69,21 +69,24 @@ export default function User() {
   const { username } = useParams();
   const [backgroundImageLoaded, SetBackgroundImageLoaded] = useState(false);
   const [profileImageLoaded, SetProfileImageLoaded] = useState(false);
-  const [following, setIsFollowing] = useState(currentUser.username !== guestUser.username && guestUser.is_followed);
+  const [following, setIsFollowing] = useState(false);
   const [followingText, setFollowingText] = useState("Following");
   const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
-    document.title = `${currentUser.fullName} (@${currentUser.username}) / Twitter`;
+    document.title = `(@${currentUser.username}) / Twitter`;
   }, [currentUser.fullName, currentUser.username]);
   useEffect(() => {
-    const retriveUser = (username) => {
+    const retriveUser = async (username) => {
       dispatch(fetchUser(username));
       // dispatch retrive user action
       // handel success fail
     };
-    retriveUser(username);
+    retriveUser(username).then(() => {
+        setIsFollowing(guestUser.is_followed)
+      });
+    // setIsFollowing(guestUser.is_followed)
     return () => dispatch(CLEAR_GUEST_USER());
-  }, [username, dispatch]);
+  }, [username, dispatch, guestUser.is_followed]);
 
   return (
     <div className="two-flex-col-container userpage">
