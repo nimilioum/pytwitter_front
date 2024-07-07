@@ -50,6 +50,7 @@ export const followUser = async (username) => {
   try {
     console.log(username)
     const response = await axios.post(`/api/user/${username}/follow/`, null, );
+    console.log(response, "fwmfkwmek")
     return response.data;
   } catch (error) {
     throw new Error(error.response.data.error);

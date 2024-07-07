@@ -33,7 +33,7 @@ export default function TweetOptions({ istweetOptions, tweet, dispatch }) {
     e.stopPropagation();
     try {
       dispatch(TWEET_USER_UNFOLLOW_SUCCESS());
-      await unfollowUser(tweet.user.id);
+      await unfollowUser(tweet.user.username);
     } catch (error) {
       dispatch(TWEET_USER_UNFOLLOW_FAILED());
       cogoToast.error(error.message);
@@ -78,10 +78,10 @@ export default function TweetOptions({ istweetOptions, tweet, dispatch }) {
           <li className="tweet-options-model-item">
             {tweet.user.username !== currentUser.username && (
               <>
-                <span className="tweet-options-model-icon">
+                {/* <span className="tweet-options-model-icon">
                   <i className="far fa-user-plus"></i>
-                </span>
-                {!tweet.user.is_followed && (
+                </span> */}
+                {tweet.user.is_followed && (
                   <TextButton
                     className="tweet-options-model-btn"
                     onClick={handelFollow}
@@ -89,7 +89,7 @@ export default function TweetOptions({ istweetOptions, tweet, dispatch }) {
                     Follow @{tweet.user.username}
                   </TextButton>
                 )}
-                {tweet.user.is_followed && (
+                {!tweet.user.is_followed && (
                   <TextButton
                     className="tweet-options-model-btn"
                     onClick={handelUnfollow}
